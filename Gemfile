@@ -10,6 +10,9 @@ gem "omniauth"
 gem "omniauth-google-oauth2"
 gem 'tux'
 gem 'rake'
+gem 'dotenv'
+gem 'squeel'
+gem 'json'
 
 group :development do
     gem "sqlite3"

@@ -1,2 +1,2 @@
-require './Lisst'
+require './app'
 require 'sinatra/activerecord/rake'

@@ -1,2 +1,2 @@
-require './Lisst'
+require './app'
 run Sinatra::Application
