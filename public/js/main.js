@@ -23,7 +23,10 @@ $(document).ready(function() {
 
         // preload the next background
         var preload = $(next.next()[0]).attr("data-bg");
-        if (preload == undefined) return;
+        if (preload == undefined) {
+            $('footer').fadeIn(400);
+            return;
+        }
         console.log(preload);
         nextbg = $('<div class="background" style="background-image: url('+preload+'); z-index: -3;"> </div>');
         $('body').append(nextbg);

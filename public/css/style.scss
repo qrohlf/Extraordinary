@@ -7,7 +7,6 @@ $red: #6E0404;
 * {
     padding: 0;
     margin:  0;
-    line-height: 2; 
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -20,14 +19,15 @@ a, a:visited {
 }
 
 //height stuff
-html, body {
+html {
     min-height: 100%; //fallback
     min-height: 100vh;
     font-size: 16px;
-    overflow: hidden;
 }
 
-html {
+body {
+    min-height: 100%; //fallback
+    min-height: 100vh;
     text-align: center;
     font-family: 'Open Sans', sans-serif;
 }
@@ -35,6 +35,7 @@ html {
 body {
     margin: 0 0;
     position: relative;
+    min-height: 550px;
 }
 
 .background {
@@ -61,9 +62,10 @@ body {
 
 header {
     color: black;
-    margin: 2rem 0;
+    padding: 2rem 0;
+    margin: 0 0;
     p {
-        font-size: 1.5rem;
+        font-size: 0.85rem;
         font-weight: 300;
     }
 }
@@ -78,6 +80,8 @@ h1 {
 }
 
 #main {
+
+    line-height: 2; 
     // background: rgba(255, 255, 255, 0.8);
     width: 50%;
     min-width: 400px;
@@ -113,9 +117,13 @@ footer {
     padding: .5rem;
     display: block;
     width: 100%;
+    margin-bottom: 2rem;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1.15rem;
     a, a:visited {
         text-decoration: underline;
     }
+    display: none;
 }
 
 .button {

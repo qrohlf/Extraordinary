@@ -63,6 +63,10 @@ get '/' do
   send_file File.join(settings.public_folder, 'index.html')
 end
 
+get '/submit' do
+  send_file File.join(settings.public_folder, 'submit.html')
+end
+
 
 # Login/Logout stuff
 get '/auth/google_oauth2/callback' do
