@@ -4,7 +4,7 @@ $(document).ready(function() {
     var tmp;
 
     $.when(bgload(currbg), bgload(nextbg)).done(function() {
-      // console.log('Both backgrounds loaded');
+      console.log('Both backgrounds loaded');
       $('.spinner-container').fadeOut(400);
     });
 
@@ -79,7 +79,8 @@ $(document).ready(function() {
     function bgload(elem) {
       var img = new Image();
       url = elem.css('background-image').replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+      console.log(url);
       img.src = url;
-      return $(img).load().promise();
+      return $(img).load();
     }
 });
