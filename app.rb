@@ -49,10 +49,25 @@ end
 # Application API
 get '/radness' do
   served = session[:served]
-  # tasks = Task.where{-(id.like_any served)} # filter out already used tasks
-  tasks = Task.all
-  @Task = tasks[rand(tasks.count)];
+
+  if served.count == 0
+    tasks = Task.where{(status == 'rad')}
+    @Task = tasks[rand(tasks.count)];
+  elsif served.count == 2
+    @Task = Task.new(id: -1, task: "Were the first two suggestions really that bad?", deadline: "Hopefully the next one will be spot-on.")
+  elsif served.count == 6
+    @Task = Task.new(id: -1, task: "Look, we can't help but think that you're not really taking this seriously.", deadline: "Pressing buttons is not a fulfilling way of life.")
+  else
+    tasks = Task.where{(id.not_eq_all served) & (status == 'rad')} # filter out already used tasks
+    @Task = tasks[rand(tasks.count)]
+  end
+
+  if @Task == nil 
+    @Task = Task.new(id: -2, task: "Nothing sounded interesting? Fulfilling? We're all out of ideas.", deadline: "<a href='/submit'>Maybe you can give us some new ones.</a>")
+  end
+
   session[:served] << @Task.id
+
   content_type :json
   @Task.to_json
 end
@@ -67,6 +82,11 @@ get '/submit' do
   send_file File.join(settings.public_folder, 'submit.html')
 end
 
+post '/submit' do 
+  Task.create(params)
+  'success'
+end
+
 
 # Login/Logout stuff
 get '/auth/google_oauth2/callback' do
@@ -75,12 +95,19 @@ get '/auth/google_oauth2/callback' do
 end
 
 get '/logout' do 
-    session.clear
+    session[:auth] = nil;
+    session[:served] = Array.new;
     redirect('/')
 end
 
 get '/unauthorized' do 
     haml :unauthorized
+end
+
+get '/moderate' do
+  #can_edit
+  @unmoderated = Task.where(status: 'needs_moderation')
+  haml :moderate, layout_engine: :erb
 end
 
 def can_edit

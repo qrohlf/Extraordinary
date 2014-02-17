@@ -15,7 +15,11 @@ $red: #6E0404;
 a, a:visited {
     color: inherit;
     cursor: pointer;
-    text-decoration: none;
+    text-decoration: underline;
+}
+
+p {
+    margin: 0 0 1rem 0;
 }
 
 //height stuff
@@ -67,6 +71,9 @@ header {
     p {
         font-size: 0.85rem;
         font-weight: 300;
+    }
+    a, a:visited {
+        text-decoration: none;
     }
 }
 
@@ -140,4 +147,13 @@ footer {
         color: white;
         border: 1px solid transparent;
     }
+    text-decoration: none;
+}
+
+.input {
+    display: inline-block;
+    min-width: 150px;
+    background: rgba(255, 255, 255, .5);
+    // height: 2rem;
+    vertical-align: middle;
 }

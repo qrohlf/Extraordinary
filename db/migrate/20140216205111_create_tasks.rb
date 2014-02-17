@@ -3,6 +3,7 @@ class CreateTasks < ActiveRecord::Migration
     create_table :tasks do |t|
         t.string :task
         t.string :deadline
+        t.string :status, default: 'needs_moderation'
     end
   end
   def down

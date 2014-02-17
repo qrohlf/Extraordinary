@@ -40,8 +40,34 @@ $(document).ready(function() {
     function getTask() {
         $.getJSON( "/radness", function( data ) { 
             console.log(data);
-            $('#mission').html(data.task+' <em>'+data.deadline+'</em>');
-            window.location.hash = data.id;
+            $('#mission').fadeTo(400, 0, function() {
+              $('#mission').html(data.task+' <em>'+data.deadline+'</em>');
+              $('#mission').fadeTo(400, 1);
+            });
+            
+
+            if (data.id == -1) {
+              $('#missionlabel').fadeTo(400, 0);
+            } else if (data.id == -2) {
+              $('#missionlabel').fadeTo(400, 0);
+              $('.button.another').attr('href', '/logout').html('Reset').off('click');
+            } else {
+              $('#missionlabel').fadeTo(400, 1);
+            }
         });
     };
+
+    $('.submission.button').click(function() {
+        var task = $('#what').text();
+        var deadline = $('#when').text();
+        $.post('/submit', {task: task, deadline: deadline}, function(data) {
+          console.log(data);
+          if (data == 'success') {
+            $('#submit-form').fadeTo(400, 0, function() {
+              $('#success').fadeTo(400, 1);
+            });
+
+          }
+        });
+    });
 });
