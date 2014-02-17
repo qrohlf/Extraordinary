@@ -2,6 +2,7 @@
 @import "normalize";
 
 $dark-gray: #556270;
+$red: #6E0404;
 
 * {
     padding: 0;
@@ -15,26 +16,47 @@ $dark-gray: #556270;
 a, a:visited {
     color: inherit;
     cursor: pointer;
+    text-decoration: none;
 }
 
 //height stuff
 html, body {
-    height: 100%; //fallback
-    height: 100vh;
+    min-height: 100%; //fallback
+    min-height: 100vh;
     font-size: 16px;
     overflow: hidden;
 }
 
 html {
-    background: url(/images/jet-sky.jpg) no-repeat top center;
-    background-size: cover; 
     text-align: center;
     font-family: 'Open Sans', sans-serif;
 }
 
 body {
-    background: rgba(255, 255, 255, .2);
+    margin: 0 0;
     position: relative;
+}
+
+.background {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    z-index: -2;
+}
+
+.overlay {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, .3);
+    z-index: -1;
 }
 
 header {
@@ -49,7 +71,7 @@ header {
 h1 {
     font-size: 5rem;
     text-transform: uppercase;
-    font-family: 'Volkorn', serif;
+    font-family: 'Vollkorn', serif;
     font-weight: 400;
     line-height: 1;
     margin: 0 0;
@@ -63,11 +85,23 @@ h1 {
     padding: 1rem;
     // border-radius: 5px;
     display: inline-block;
+    font-size: 1.25rem;
+    font-family: 'Vollkorn', sans-serif;
     .slide {
         display: none;
-        &.active {
+        &:first-child{
             display: block;
         }
+    }
+}
+
+#mission {
+    font-size: 2rem;
+    line-height: 1.15;
+    margin: 1rem 0;
+    em {
+        color: $red;
+        font-style: normal;
     }
 }
 
@@ -79,17 +113,23 @@ footer {
     padding: .5rem;
     display: block;
     width: 100%;
+    a, a:visited {
+        text-decoration: underline;
+    }
 }
 
 .button {
+    transition: background 0.5s, color 0.5s, border 0.5s;
     padding: .5rem;
     margin: 1rem;
     display: inline-block;
     border: 1px solid black;
     text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
     &:hover {
         background: rgba(0, 0, 0, .5);
         color: white;
-        border: none;
+        border: 1px solid transparent;
     }
 }
