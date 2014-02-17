@@ -3,9 +3,12 @@ $(document).ready(function() {
     var nextbg = $(".background").first();
     var tmp;
 
-    $.when(bgload(currbg), bgload(nextbg)).done(function() {
-      console.log('Both backgrounds loaded');
-      $('.spinner-container').fadeOut(400);
+    $('body').waitForImages({
+        finished: function() {
+            console.log('Both backgrounds loaded foo');
+            $('.spinner-container').fadeOut(400);
+        },
+        waitForAll: true
     });
 
     $( "#main" ).on( "click", ".button.next", function() {
@@ -75,12 +78,4 @@ $(document).ready(function() {
           }
         });
     });
-
-    function bgload(elem) {
-      var img = new Image();
-      url = elem.css('background-image').replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
-      console.log(url);
-      img.src = url;
-      return $(img).load();
-    }
 });
