@@ -3,6 +3,11 @@ $(document).ready(function() {
     var nextbg = $(".background").first();
     var tmp;
 
+    $.when(bgload(currbg), bgload(nextbg)).done(function() {
+      // console.log('Both backgrounds loaded');
+      $('.spinner-container').fadeOut(400);
+    });
+
     $( "#main" ).on( "click", ".button.next", function() {
       var current = $(this).parents(".slide").first();
       var next = current.next();
@@ -27,7 +32,7 @@ $(document).ready(function() {
             $('footer').fadeIn(200);
             return;
         }
-        console.log(preload);
+        // console.log(preload);
         nextbg = $('<div class="background" style="background-image: url('+preload+'); z-index: -3;"> </div>');
         $('body').append(nextbg);
 
@@ -42,7 +47,7 @@ $(document).ready(function() {
         var json = $.getJSON( "/radness").promise();
         $.when(fade, json).done(function(a, json) {
           var data = json[0];
-          console.log(data);
+          // console.log(data);
           $('#mission').html(data.task+' <em>'+data.deadline+'</em>');
           $('#mission').fadeTo(100, 1);
 
@@ -61,7 +66,7 @@ $(document).ready(function() {
         var task = $('#what').text();
         var deadline = $('#when').text();
         $.post('/submit', {task: task, deadline: deadline}, function(data) {
-          console.log(data);
+          // console.log(data);
           if (data == 'success') {
             $('#submit-form').fadeOut(400, function() {
               $('#success').fadeIn(400);
@@ -70,4 +75,11 @@ $(document).ready(function() {
           }
         });
     });
+
+    function bgload(elem) {
+      var img = new Image();
+      url = elem.css('background-image').replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+      img.src = url;
+      return $(img).load().promise();
+    }
 });
