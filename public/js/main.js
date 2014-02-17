@@ -24,7 +24,7 @@ $(document).ready(function() {
         // preload the next background
         var preload = $(next.next()[0]).attr("data-bg");
         if (preload == undefined) {
-            $('footer').fadeIn(400);
+            $('footer').fadeIn(200);
             return;
         }
         console.log(preload);
