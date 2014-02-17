@@ -1,7 +1,7 @@
 .moderation
     - @tasks.each do |task|
         .item{:'data-id' => task.id}
-            %input.detail.status{type: 'checkbox', checked: (task.status='rad')?'true':'false'}
+            %input.detail.status{type: 'checkbox', checked: task.status == 'rad'}
             %span.detail.task{contenteditable: 'true'}=task.task
             %span.detail.deadline{contenteditable: 'true'}=task.deadline
 %p
