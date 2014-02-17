@@ -29,7 +29,6 @@ ActiveRecord::Base.establish_connection(
 # Session:Cookie needed by OmniAuth
 use Rack::Session::Cookie, :expire_after => 1209600, # 7 days
                            :secret => ENV['COOKIE_SECRET']
-enable :sessions
 
 # MethodOverride for RESTful interface
 use Rack::MethodOverride
