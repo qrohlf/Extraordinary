@@ -60,7 +60,8 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    background: rgba(255, 255, 255, .3);
+    background: white;
+    opacity: 0.3;
     z-index: -1;
 }
 
@@ -156,4 +157,15 @@ footer {
     background: rgba(255, 255, 255, .5);
     // height: 2rem;
     vertical-align: middle;
+}
+
+.moderation {
+    .item {
+        margin: 1rem 0;
+    }
+    .detail {
+        &.deadline {
+            color: $red;
+        }
+    }
 }

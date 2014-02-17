@@ -38,22 +38,22 @@ $(document).ready(function() {
     $('.button.another').click(getTask);
 
     function getTask() {
-        $.getJSON( "/radness", function( data ) { 
-            console.log(data);
-            $('#mission').fadeTo(400, 0, function() {
-              $('#mission').html(data.task+' <em>'+data.deadline+'</em>');
-              $('#mission').fadeTo(400, 1);
-            });
-            
+        var fade = $('#mission').fadeTo(200, 0).promise();
+        var json = $.getJSON( "/radness").promise();
+        $.when(fade, json).done(function(a, json) {
+          var data = json[0];
+          console.log(data);
+          $('#mission').html(data.task+' <em>'+data.deadline+'</em>');
+          $('#mission').fadeTo(100, 1);
 
-            if (data.id == -1) {
-              $('#missionlabel').fadeTo(400, 0);
-            } else if (data.id == -2) {
-              $('#missionlabel').fadeTo(400, 0);
-              $('.button.another').attr('href', '/logout').html('Reset').off('click');
-            } else {
-              $('#missionlabel').fadeTo(400, 1);
-            }
+          if (data.id == -1) {
+            $('#missionlabel').fadeTo(100, 0);
+          } else if (data.id == -2) {
+            $('#missionlabel').fadeTo(100, 0);
+            $('.button.another').attr('href', '/logout').html('Reset').off('click');
+          } else {
+            $('#missionlabel').fadeTo(100, 1);
+          }
         });
     };
 
@@ -63,8 +63,8 @@ $(document).ready(function() {
         $.post('/submit', {task: task, deadline: deadline}, function(data) {
           console.log(data);
           if (data == 'success') {
-            $('#submit-form').fadeTo(400, 0, function() {
-              $('#success').fadeTo(400, 1);
+            $('#submit-form').fadeOut(400, function() {
+              $('#success').fadeIn(400);
             });
 
           }

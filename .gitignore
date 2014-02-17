@@ -3,3 +3,4 @@
 development.db
 *.db
 .DS_Store
+.env

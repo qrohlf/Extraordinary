@@ -10,6 +10,7 @@ require 'omniauth'
 require 'omniauth-google-oauth2'
 require 'squeel'
 require 'json'
+require "net/https"
 
 config_file 'config.yml'
 
@@ -26,7 +27,8 @@ ActiveRecord::Base.establish_connection(
 )
 
 # Session:Cookie needed by OmniAuth
-use Rack::Session::Cookie
+use Rack::Session::Cookie, :expire_after => 1209600, # 7 days
+                           :secret => ENV['COOKIE_SECRET']
 enable :sessions
 
 # MethodOverride for RESTful interface
@@ -84,6 +86,7 @@ end
 
 post '/submit' do 
   Task.create(params)
+  notify("New task submitted: '#{params[:task]} -- #{params[:deadline]}'")
   'success'
 end
 
@@ -98,6 +101,7 @@ get '/logout' do
     session[:auth] = nil;
     session[:served] = Array.new;
     redirect('/')
+    return nil
 end
 
 get '/unauthorized' do 
@@ -105,8 +109,14 @@ get '/unauthorized' do
 end
 
 get '/moderate' do
-  #can_edit
-  @unmoderated = Task.where(status: 'needs_moderation')
+  can_edit
+  @title = 'moderation'
+  if params[:showall] == 'true'
+    @showall = true
+    @tasks = Task.all.order(created_at: :desc)
+  else 
+    @tasks = Task.where(status: 'needs_moderation').order(created_at: :desc)
+  end
   haml :moderate, layout_engine: :erb
 end
 
@@ -114,4 +124,18 @@ def can_edit
     auth = session[:auth]
     redirect("/auth/google_oauth2?origin=#{URI.escape request.fullpath}") if auth.nil?
     settings.can_edit.include? auth[:info][:email]
+end
+
+def notify(message) 
+  url = URI.parse("https://api.pushover.net/1/messages.json")
+  req = Net::HTTP::Post.new(url.path)
+  req.set_form_data({
+    :token => ENV['PUSHOVER_TOKEN'],
+    :user => ENV['PUSHOVER_USER'],
+    :message => message,
+  })
+  res = Net::HTTP.new(url.host, url.port)
+  res.use_ssl = true
+  res.verify_mode = OpenSSL::SSL::VERIFY_PEER
+  res.start {|http| http.request(req) }
 end

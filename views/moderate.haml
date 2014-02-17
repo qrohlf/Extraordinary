@@ -1,4 +1,13 @@
-- @unmoderated.each do |task|
-    .item{:'data-id' => task.id}
-        .detail.task=task.task
-        .detail.deadline=task.deadline
+.moderation
+    - @tasks.each do |task|
+        .item{:'data-id' => task.id}
+            %input.detail.status{type: 'checkbox', checked: (task.status='rad')?'true':'false'}
+            %span.detail.task{contenteditable: 'true'}=task.task
+            %span.detail.deadline{contenteditable: 'true'}=task.deadline
+%p
+    %a.button.moderate="Save Changes"
+%p
+    - if (@showall)
+        %a.button{href: '?showall=false'}="Show Unmoderated"
+    - else 
+        %a.button{href: '?showall=true'}="Show All"

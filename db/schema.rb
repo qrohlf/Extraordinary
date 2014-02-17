@@ -13,9 +13,11 @@
 ActiveRecord::Schema.define(version: 20140216205111) do
 
   create_table "tasks", force: true do |t|
-    t.string "task"
-    t.string "deadline"
-    t.string "status",   default: "needs_moderation"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "task"
+    t.string   "deadline"
+    t.string   "status",     default: "needs_moderation"
   end
 
 end
