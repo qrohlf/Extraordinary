@@ -139,6 +139,10 @@ footer {
     display: none;
 }
 
+.submit footer {
+    display: block;
+}
+
 .button {
     transition: background 0.5s, color 0.5s, border 0.5s;
     padding: .5rem;

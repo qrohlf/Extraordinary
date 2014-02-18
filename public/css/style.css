@@ -152,6 +152,8 @@ h1 { font-size: 5rem; text-transform: uppercase; font-family: 'Vollkorn', serif;
 footer { position: absolute; bottom: 0; right: 0; text-align: center; padding: .5rem; display: block; width: 100%; margin-bottom: 2rem; color: rgba(0, 0, 0, 0.7); font-size: 1.15rem; display: none; }
 footer a, footer a:visited { text-decoration: underline; }
 
+.submit footer { display: block; }
+
 .button { transition: background 0.5s, color 0.5s, border 0.5s; padding: .5rem; margin: 1rem; display: inline-block; border: 1px solid black; text-transform: uppercase; font-family: 'Open Sans', sans-serif; font-size: 1rem; text-decoration: none; }
 .button:hover { background: rgba(0, 0, 0, 0.5); color: white; border: 1px solid transparent; }
 
