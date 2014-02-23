@@ -28,6 +28,22 @@
         <div class="overlay"> </div>
         <div class="background" style="background-image: url(/images/bike.jpg);"> </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-        <script src="/js/main.js"></script>
+        <script>
+        $(document).ready(function() {
+            $('.submission.button').click(function() {
+            var task = $('#what').text();
+            var deadline = $('#when').text();
+            $.post('/submit', {task: task, deadline: deadline}, function(data) {
+                  // console.log(data);
+                  if (data == 'success') {
+                    $('#submit-form').fadeOut(400, function() {
+                      $('#success').fadeIn(400);
+                    });
+
+                  }
+                });
+            });
+        });
+        </script>
     </body>
 </html>

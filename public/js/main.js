@@ -64,20 +64,6 @@ $(document).ready(function() {
           }
         });
     };
-
-    $('.submission.button').click(function() {
-        var task = $('#what').text();
-        var deadline = $('#when').text();
-        $.post('/submit', {task: task, deadline: deadline}, function(data) {
-          // console.log(data);
-          if (data == 'success') {
-            $('#submit-form').fadeOut(400, function() {
-              $('#success').fadeIn(400);
-            });
-
-          }
-        });
-    });
 });
 
 //Analytics
