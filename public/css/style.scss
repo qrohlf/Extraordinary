@@ -148,14 +148,14 @@ footer {
     padding: .5rem;
     margin: 1rem;
     display: inline-block;
-    border: 1px solid black;
+    border: 2px solid black;
     text-transform: uppercase;
     font-family: 'Open Sans', sans-serif;
     font-size: 1rem;
     &:hover {
         background: rgba(0, 0, 0, .5);
         color: white;
-        border: 1px solid transparent;
+        border: 2px solid transparent;
     }
     text-decoration: none;
 }
